@@ -9,17 +9,18 @@ export default function ContactForm() {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
-    const newContact = { ...values, id: nanoid() };
-    dispatch(addContact(newContact));
-    // onAdd({
-    //   id: nanoid(),
-    //   name: values.username,
-    //   number: values.number,
-    // });
+    dispatch(
+      addContact({
+        id: nanoid(),
+        name: values.name,
+        number: values.number,
+      })
+    );
+
     actions.resetForm();
   };
   const UserSchema = Yup.object().shape({
-    username: Yup.string()
+    name: Yup.string()
       .min(3, "Too Short!")
       .max(50, "Too Long!")
       .required("Required"),
@@ -32,7 +33,7 @@ export default function ContactForm() {
   return (
     <Formik
       initialValues={{
-        username: "",
+        name: "",
         number: "",
         id: "",
       }}
@@ -41,18 +42,14 @@ export default function ContactForm() {
     >
       <Form className={css.form}>
         <div className={css.formItem}>
-          <label htmlFor="username">Name</label>
+          <label htmlFor="name">Name</label>
           <Field
             className={css.input}
-            id="username"
+            id="name"
             type="text"
-            name="username"
+            name="name"
           ></Field>
-          <ErrorMessage
-            className={css.error}
-            name="username"
-            component="span"
-          />
+          <ErrorMessage className={css.error} name="name" component="span" />
         </div>
         <div className={css.formItem}>
           <label htmlFor="number">Number</label>

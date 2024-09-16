@@ -19,7 +19,6 @@ const slice = createSlice({
     },
   },
 });
-console.log(slice);
 
 export const selectContacts = (state) => state.contacts.items;
 
